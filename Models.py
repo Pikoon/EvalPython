@@ -3,11 +3,25 @@ class Dates(models.Model):
     debut = models.DateField
     fin = models.DateField
 
-#planifiée, en cours, réalisée, en pause, validée
+class Employe(models.Model):
+    name = models.CharField(max_length=50)
+    prenom = models.CharField(max_length=50)
+    absence = models.ForeignKey(
+        Dates,
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
 class Tache(models.Model):
     nom = models.CharField(max_length=255)
     description = models.TextField()
-    dates = models.ForeignKey(Dates, on_delete=models.CASCADE)
+    dates = models.ForeignKey(
+        Dates,
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
     duree = models.DurationField()
     statut = {
         "plan" : "Planifiée",
@@ -16,11 +30,20 @@ class Tache(models.Model):
         "pause" : "En pause",
         "ok" : "Validée"
     }
+    assigned = models.ManyToManyField(
+        Employe,
+        through = "Assignee",
+        through_fields=("group", "employe")
+    )
     etat_avancement = models.FloatField()
     priorite = models.IntegerField()
-    super_tache = models.ForeignKey('self', on_delete=models.CASCADE)
+    super_tache = models.ForeignKey(
+        'self',
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
-#en pause, planifié, en cours, livré
 class Projets(models.Model):
     nom = models.CharField(max_length=255)
     statut = {
@@ -30,12 +53,17 @@ class Projets(models.Model):
         "ok" : "Livré"
     }
     etat_avancement = models.FloatField
-    date = models.ForeignKey(Dates, on_delete=models.CASCADE)
-
-class Employe(models.Model):
-    name = models.CharField(max_length=50)
-    prenom = models.CharField(max_length=50)
-    absence = models.ForeignKey(Dates, on_delete=models.CASCADE)
+    date = models.ForeignKey(
+        Dates,
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
 
 class Responsable(Employe):
-    projet = models.ForeignKey(Projets, on_delete=models.CASCADE)
+    projet = models.ForeignKey(
+        Projets,
+        models.SET_NULL,
+        blank=True,
+        null=True
+    )
