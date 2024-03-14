@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'evaldjango.urls'
+ROOT_URLCONF = 'EvalPython.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'evaldjango.wsgi.application'
+WSGI_APPLICATION = 'EvalPython.wsgi.application'
 
 
 # Database
