@@ -38,11 +38,11 @@ class Tache(models.Model):
     duree = models.DurationField()
     #1 = Planifiée, 2=En cours, 3 = Réalisée, 4=En pause, 5=Validée
     statut = models.IntegerField()
-    assigned = models.ManyToManyField(
-        Employe,
-        through="Assignee",
-        through_fields=("group", "employe")
-    )
+    #assignee = models.ManyToManyField(
+    #    Employe,
+    #    through="Assignee",
+    #    through_fields=("group", "employe")
+    #)
     etat_avancement = models.FloatField()
     priorite = models.IntegerField()
 
