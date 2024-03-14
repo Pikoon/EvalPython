@@ -3,13 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Dates(models.Model):
-    debut = models.DateField
-    fin = models.DateField
-
+    debut = models.DateField()
+    fin = models.DateField()
     def __str__(self):
         return self.debut
-
-
 class Employe(models.Model):
     name = models.CharField(max_length=50)
     prenom = models.CharField(max_length=50)
@@ -19,16 +16,10 @@ class Employe(models.Model):
         blank=True,
         null=True
     )
-    role = models.TextChoices({
-        "def": "Defaut",
-        "resp": "Responsable",
-        "gest": "Gestionnaire"
-    })
-
+    #1 = Defaut, 2 = Responsable, 3 = Gestionnaire
+    role = models.IntegerField()
     def __str__(self):
         return self.name
-
-
 class Tache(models.Model):
     nom = models.CharField(max_length=255)
     description = models.TextField()
@@ -39,25 +30,15 @@ class Tache(models.Model):
         null=True
     )
     duree = models.DurationField()
-    statut = models.TextChoices({
-        "plan": "Planifiée",
-        "run": "En cours",
-        "fini": "Réalisée",
-        "pause": "En pause",
-        "ok": "Validée"
-    }
-    )
+    #1 = Planifiée, 2=En cours, 3 = Réalisée, 4=En pause, 5=Validée
+    statut = models.IntegerField()
     # assignee = models.ManyToManyField(
     #    Employe,
     #    through="Assignee",
     #    through_fields=("group", "employe")
     # )
     etat_avancement = models.FloatField()
-    priorite = models.IntegerChoices({
-        1,
-        2,
-        3
-    })
+    priorite = models.IntegerField()
 
     super_tache = models.ForeignKey(
         'self',
@@ -72,13 +53,8 @@ class Tache(models.Model):
 
 class Projets(models.Model):
     nom = models.CharField(max_length=255)
-    statut = models.TextChoices({
-        "pause": "En pause",
-        "plan": "Planifié",
-        "run": "En cours",
-        "ok": "Livré"
-    })
-    etat_avancement = models.FloatField
+    statut = models.IntegerField()
+    etat_avancement = models.FloatField()
     date = models.ForeignKey(
         Dates,
         models.SET_NULL,
