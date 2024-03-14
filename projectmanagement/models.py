@@ -19,11 +19,12 @@ class Employe(models.Model):
         blank=True,
         null=True
     )
-    role = models.TextChoices({
-        "def": "Defaut",
-        "resp": "Responsable",
-        "gest": "Gestionnaire"
-    })
+    #1 = Defaut, 2 = Responsable, 3 = Gestionnaire
+    role = models.IntegerChoices(
+        1,
+        2,
+        3
+    )
 
     def __str__(self):
         return self.name
@@ -39,13 +40,13 @@ class Tache(models.Model):
         null=True
     )
     duree = models.DurationField()
-    statut = models.TextChoices({
-        "plan": "Planifiée",
-        "run": "En cours",
-        "fini": "Réalisée",
-        "pause": "En pause",
-        "ok": "Validée"
-    }
+    #1 = Planifiée, 2=En cours, 3 = Réalisée, 4=En pause, 5=Validée
+    statut = models.IntegerChoices(
+        1,
+        2,
+        3,
+        4,
+        5,
     )
     assigned = models.ManyToManyField(
         Employe,
