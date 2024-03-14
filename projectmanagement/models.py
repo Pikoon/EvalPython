@@ -6,6 +6,9 @@ class Dates(models.Model):
     debut = models.DateField
     fin = models.DateField
 
+    def __str__(self):
+        return self.debut
+
 
 class Employe(models.Model):
     name = models.CharField(max_length=50)
@@ -21,6 +24,9 @@ class Employe(models.Model):
         "resp": "Responsable",
         "gest": "Gestionnaire"
     }
+
+    def __str__(self):
+        return self.name
 
 
 class Tache(models.Model):
@@ -59,6 +65,9 @@ class Tache(models.Model):
         null=True
     )
 
+    def __str__(self):
+        return self.nom
+
 
 class Projets(models.Model):
     nom = models.CharField(max_length=255)
@@ -81,3 +90,6 @@ class Projets(models.Model):
         blank=True,
         null=True
     )
+
+    def __str__(self):
+        return self.nom
