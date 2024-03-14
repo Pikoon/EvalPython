@@ -20,11 +20,7 @@ class Employe(models.Model):
         null=True
     )
     #1 = Defaut, 2 = Responsable, 3 = Gestionnaire
-    role = models.IntegerChoices(
-        1,
-        2,
-        3,
-    )
+    role = models.IntegerField
 
     def __str__(self):
         return self.name
@@ -41,24 +37,14 @@ class Tache(models.Model):
     )
     duree = models.DurationField()
     #1 = Planifiée, 2=En cours, 3 = Réalisée, 4=En pause, 5=Validée
-    statut = models.IntegerChoices(
-        1,
-        2,
-        3,
-        4,
-        5,
-    )
+    statut = models.IntegerField
     assigned = models.ManyToManyField(
         Employe,
         through="Assignee",
         through_fields=("group", "employe")
     )
     etat_avancement = models.FloatField()
-    priorite = models.IntegerChoices({
-        1,
-        2,
-        3
-    })
+    priorite = models.IntegerField
 
     super_tache = models.ForeignKey(
         'self',
@@ -73,12 +59,7 @@ class Tache(models.Model):
 
 class Projets(models.Model):
     nom = models.CharField(max_length=255)
-    statut = models.TextChoices({
-        "pause": "En pause",
-        "plan": "Planifié",
-        "run": "En cours",
-        "ok": "Livré"
-    })
+    statut = models.IntegerField
     etat_avancement = models.FloatField
     date = models.ForeignKey(
         Dates,
