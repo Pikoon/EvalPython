@@ -23,7 +23,7 @@ class Employe(models.Model):
     role = models.IntegerChoices(
         1,
         2,
-        3
+        3,
     )
 
     def __str__(self):
