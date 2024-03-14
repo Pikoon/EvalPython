@@ -18,6 +18,7 @@ class Tache(models.Model):
     }
     etat_avancement = models.FloatField()
     priorite = models.IntegerField()
+    super_tache = models.ForeignKey('self', on_delete=models.CASCADE)
 
 #en pause, planifié, en cours, livré
 class Projets(models.Model):
@@ -34,6 +35,7 @@ class Projets(models.Model):
 class Employe(models.Model):
     name = models.CharField(max_length=50)
     prenom = models.CharField(max_length=50)
+    absence = models.ForeignKey(Dates, on_delete=models.CASCADE)
 
 class Responsable(Employe):
     projet = models.ForeignKey(Projets, on_delete=models.CASCADE)
