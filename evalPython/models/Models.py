@@ -15,11 +15,11 @@ class Employe(models.Model):
         blank=True,
         null=True
     )
-    role = {
+    role = models.TextChoices({
         "def": "Defaut",
         "resp": "Responsable",
         "gest": "Gestionnaire"
-    }
+    })
 
 
 class Tache(models.Model):
@@ -32,24 +32,25 @@ class Tache(models.Model):
         null=True
     )
     duree = models.DurationField()
-    statut = {
+    statut = models.TextChoices({
         "plan": "Planifiée",
         "run": "En cours",
         "fini": "Réalisée",
         "pause": "En pause",
         "ok": "Validée"
     }
+    )
     assigned = models.ManyToManyField(
         Employe,
         through="Assignee",
         through_fields=("group", "employe")
     )
     etat_avancement = models.FloatField()
-    priorite = {
+    priorite = models.IntegerChoices({
         1,
         2,
         3
-    }
+    })
 
     super_tache = models.ForeignKey(
         'self',
@@ -61,12 +62,12 @@ class Tache(models.Model):
 
 class Projets(models.Model):
     nom = models.CharField(max_length=255)
-    statut = {
+    statut = models.TextChoices({
         "pause": "En pause",
         "plan": "Planifié",
         "run": "En cours",
         "ok": "Livré"
-    }
+    })
     etat_avancement = models.FloatField
     date = models.ForeignKey(
         Dates,
